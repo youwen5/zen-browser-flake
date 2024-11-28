@@ -14,15 +14,15 @@
     }:
     let
       system = "x86_64-linux";
-      version = "1.0.1-a.21";
+      version = "1.0.1-a.22";
       downloadUrl = {
         "specific" = {
           url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-specific.tar.bz2";
-          sha256 = "sha256:0ljwz9ssy461xkcpnmcyf80pycd94qmw9bzbp9cphqls9qd56may";
+          sha256 = "sha256:0h3hk8n6n16fml6lj025g12nhl9plixwjxfl599z1s47dfs09p7c";
         };
         "generic" = {
           url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-generic.tar.bz2";
-          sha256 = "sha256:0h3hk8n6n16fml6lj025g12nhl9plixwjxfl599z1s47dfs09p7c";
+          sha256 = "sha256:065rl1fhg79bkj1qy960qcid7wr7vd7j3wsf7bbr69b4rgmqqv3z";
         };
       };
 
