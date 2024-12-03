@@ -11,9 +11,6 @@
       ...
     }:
     let
-      # currently the only version with aarch64 builds is twilight
-      version = "twilight";
-
       supportedSystems = [
         "x86_64-linux"
         "aarch64-linux"
@@ -24,6 +21,7 @@
       packages."x86_64-linux" =
         let
           pkgs = import nixpkgs { system = "x86_64-linux"; };
+          version = "1.0.1-a.22";
         in
         rec {
           zen-browser = pkgs.callPackage ./zen-browser.nix { inherit version; };
@@ -37,6 +35,8 @@
       packages."aarch64-linux" =
         let
           pkgs = import nixpkgs { system = "aarch64-linux"; };
+          # a.22 doesnt have aarch
+          version = "1.0.1-a.21";
         in
         rec {
           zen-browser = pkgs.callPackage ./zen-browser.nix { inherit version; };
