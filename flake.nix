@@ -21,12 +21,10 @@
       packages."x86_64-linux" =
         let
           pkgs = import nixpkgs { system = "x86_64-linux"; };
-          version = "1.0.1-a.22";
         in
         rec {
-          zen-browser = pkgs.callPackage ./zen-browser.nix { inherit version; };
+          zen-browser = pkgs.callPackage ./zen-browser.nix { };
           zen-browser-generic = pkgs.callPackage ./zen-browser.nix {
-            inherit version;
             variant = "generic";
           };
           default = zen-browser;
@@ -35,11 +33,9 @@
       packages."aarch64-linux" =
         let
           pkgs = import nixpkgs { system = "aarch64-linux"; };
-          # a.22 doesnt have aarch
-          version = "1.0.1-a.21";
         in
         rec {
-          zen-browser = pkgs.callPackage ./zen-browser.nix { inherit version; };
+          zen-browser = pkgs.callPackage ./zen-browser.nix { };
           default = zen-browser;
         };
 

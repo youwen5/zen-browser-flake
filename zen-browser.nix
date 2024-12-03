@@ -40,11 +40,10 @@
   xorg,
   lib,
   variant ? "specific",
-  version,
   ...
 }:
 let
-
+  version = "1.0.1-a.21";
   runtimeLibs =
     [
       libGL
@@ -99,15 +98,15 @@ let
   downloadUrl = {
     "specific" = {
       url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-specific.tar.bz2";
-      sha256 = "sha256:0psqng1jdh96sabgv6xvzhzrrl62dwb784wv7ijk7bp7darf6xca";
+      sha256 = "sha256:0ljwz9ssy461xkcpnmcyf80pycd94qmw9bzbp9cphqls9qd56may";
     };
     "generic" = {
       url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-generic.tar.bz2";
-      sha256 = "sha256:03jk6v5ax0x38s7l9ra3l2i7wqfzs4mcq673jp2d0wa8xsqw8z4h";
+      sha256 = "sha256:0h3hk8n6n16fml6lj025g12nhl9plixwjxfl599z1s47dfs09p7c";
     };
     "aarch64" = {
       url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-aarch64.tar.bz2";
-      sha256 = "sha256:08kmqkbjvh0rwd8754pm8nvkd59bdm79hxaal2x81afphnxiwzn5";
+      sha256 = "sha256:1949ni6j6ajbwbq1w5bdmhcglc1g5006l3ahb4x4cah4khaxnk94";
     };
   };
 
