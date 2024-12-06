@@ -40,6 +40,8 @@
   xorg,
   lib,
   variant ? "specific",
+  disableUpdateChecks ? true,
+  extraPolicies ? { },
   ...
 }:
 let
@@ -111,6 +113,16 @@ let
   };
 
   downloadData = if stdenv.hostPlatform.isAarch then downloadUrl.aarch64 else downloadUrl.${variant};
+
+  policiesJson = builtins.toFile "policies.json" (
+    lib.strings.toJSON {
+      policies = {
+        DisableAppUpdate = disableUpdateChecks;
+        DontCheckDefaultBrowser = true;
+      } // extraPolicies;
+    }
+  );
+
 in
 stdenv.mkDerivation {
   inherit version;
@@ -154,6 +166,10 @@ stdenv.mkDerivation {
     wrapProgram $out/bin/updater --set LD_LIBRARY_PATH "${lib.makeLibraryPath runtimeLibs}"
     patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/vaapitest
     wrapProgram $out/bin/vaapitest --set LD_LIBRARY_PATH "${lib.makeLibraryPath runtimeLibs}"
+
+    mkdir $out/bin/distribution
+    touch $out/bin/distribution/policies.json
+    cp ${policiesJson} $out/bin/distribution/policies.json
   '';
 
   meta.mainProgram = "zen";
