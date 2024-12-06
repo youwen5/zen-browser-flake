@@ -18,7 +18,11 @@ To use, add it to the relevant NixOS configuration flake inputs:
 
 ```nix
 inputs = {
+  ...
   zen-browser.url = "github:youwen5/zen-browser-flake";
+
+  # optional, but recommended so it shares system libraries, and improves startup time
+  zen-browser.inputs.nixpkgs.follows = "nixpkgs";
   ...
 }
 ```
@@ -59,12 +63,12 @@ A tree of the provided packages is displayed below for your convenience.
 ```
 packages
 ├───aarch64-linux
-│   ├───default: package 'zen-browser-1.0.1-a.21'
-│   └───zen-browser: package 'zen-browser-1.0.1-a.21'
+│   ├───default
+│   └───zen-browser
 └───x86_64-linux
-    ├───default: package 'zen-browser-1.0.1-a.21'
-    ├───zen-browser: package 'zen-browser-1.0.1-a.21'
-    └───zen-browser-generic: package 'zen-browser-1.0.1-a.21'
+    ├───default
+    ├───zen-browser
+    └───zen-browser-generic
 ```
 
 ## Installation
@@ -73,10 +77,10 @@ In `environment.systemPackages`, add one of:
 
 ```nix
 # for most modern systems
-inputs.zen-browser.packages."${pkgs.system}".default
+inputs.zen-browser.packages.${pkgs.system}.default
 
 # for older CPUs without AVX2 extension set
-inputs.zen-browser.packages."${pkgs.system}".zen-browser-generic
+inputs.zen-browser.packages."x86_64-linux".zen-browser-generic
 ```
 
 A binary called `zen` is provided.
