@@ -1,0 +1,20 @@
+name: "Publish every Git push to main to FlakeHub"
+on:
+  push:
+    branches:
+      - "main"
+jobs:
+  flakehub-publish:
+    runs-on: "ubuntu-latest"
+    permissions:
+      id-token: "write"
+      contents: "read"
+    steps:
+      - uses: "actions/checkout@v4"
+      - uses: "DeterminateSystems/nix-installer-action@main"
+      - uses: "DeterminateSystems/flakehub-push@main"
+        with:
+          name: "youwen5/zen-browser"
+          rolling: true
+          visibility: "Public"
+          include-output-paths: true
