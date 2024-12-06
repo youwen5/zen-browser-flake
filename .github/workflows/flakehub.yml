@@ -16,5 +16,5 @@ jobs:
         with:
           name: "youwen5/zen-browser"
           rolling: true
-          visibility: "Public"
+          visibility: "public"
           include-output-paths: true
