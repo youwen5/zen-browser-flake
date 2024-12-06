@@ -18,12 +18,12 @@ To use, add it to the relevant NixOS configuration flake inputs:
 
 ```nix
 inputs = {
-  ...
+  # ...
   zen-browser.url = "github:youwen5/zen-browser-flake";
 
   # optional, but recommended so it shares system libraries, and improves startup time
   zen-browser.inputs.nixpkgs.follows = "nixpkgs";
-  ...
+  # ...
 }
 ```
 
