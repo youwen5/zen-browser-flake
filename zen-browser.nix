@@ -118,6 +118,8 @@ let
     lib.strings.toJSON {
       policies = {
         DisableAppUpdate = disableUpdateChecks;
+        ManualAppUpdateOnly = disableUpdateChecks;
+        AppAutoUpdate = disableUpdateChecks;
         DontCheckDefaultBrowser = true;
       } // extraPolicies;
     }
