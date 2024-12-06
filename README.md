@@ -5,8 +5,9 @@ This is a flake for the Zen browser. Originally forked from
 but heavily modified to suit my needs. Also actively maintained, unlike the
 upstream.
 
-I have disabled the annoying update checks by default, as well as Zen trying
-to set itself as the default browser, through `policies.json`.
+I have disabled the annoying update checks by default, as well as Zen trying to
+set itself as the default browser, through `policies.json`. The browser cannot
+update itself when installed with Nix anyways, so these are entirely useless.
 
 Similar to the `firefox` package in `nixpkgs`, you can set additional policies
 by using `overrideAttrs` on the `extraPolicies` property. You can also set
