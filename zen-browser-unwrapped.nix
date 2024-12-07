@@ -39,16 +39,13 @@ let
 
   policies = {
     DisableAppUpdate = true;
-    ManualAppUpdateOnly = true;
-    AppAutoUpdate = false;
-    DontCheckDefaultBrowser = true;
   } // config.firefox.policies or { };
 
   policiesJson = writeText "firefox-policies.json" (builtins.toJSON { inherit policies; });
 in
 stdenv.mkDerivation (finalAttrs: {
   inherit version;
-  pname = "zen-browser";
+  pname = "zen-browser-unwrapped";
 
   src = builtins.fetchTarball {
     url = downloadData.url;
@@ -104,6 +101,7 @@ stdenv.mkDerivation (finalAttrs: {
   passthru = {
     inherit gtk3;
 
+    libName = "zen-${version}";
     binaryName = finalAttrs.meta.mainProgram;
     gssSupport = true;
     ffmpegSupport = true;
