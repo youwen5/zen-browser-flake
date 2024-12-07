@@ -1,5 +1,5 @@
 {
-  description = "Zen Browser";
+  description = "Zen Browser binary supporting wrapFirefox";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -23,9 +23,13 @@
           pkgs = import nixpkgs { system = "x86_64-linux"; };
         in
         rec {
-          zen-browser = pkgs.callPackage ./zen-browser.nix { };
-          zen-browser-generic = pkgs.callPackage ./zen-browser.nix {
+          zen-browser-unwrapped = pkgs.callPackage ./zen-browser-unwrapped.nix { };
+          zen-browser = pkgs.callPackage ./zen-browser.nix { inherit zen-browser-unwrapped; };
+          zen-browser-generic-unwrapped = pkgs.callPackage ./zen-browser-unwrapped.nix {
             variant = "generic";
+          };
+          zen-browser-generic = pkgs.callPackage ./zen-browser.nix {
+            zen-browser-unwrapped = zen-browser-generic-unwrapped;
           };
           default = zen-browser;
         };
@@ -35,7 +39,8 @@
           pkgs = import nixpkgs { system = "aarch64-linux"; };
         in
         rec {
-          zen-browser = pkgs.callPackage ./zen-browser.nix { };
+          zen-browser-unwrapped = pkgs.callPackage ./zen-browser-unwrapped.nix { };
+          zen-browser = pkgs.callPackage ./zen-browser.nix { inherit zen-browser-unwrapped; };
           default = zen-browser;
         };
 
