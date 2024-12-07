@@ -2,18 +2,19 @@
 
 This is a flake for the Zen browser. Originally forked from
 [MarceColl/zen-browser-flake](https://github.com/MarceColl/zen-browser-flake),
-but heavily modified to suit my needs. Also actively maintained, unlike the
-upstream.
+but heavily modified. Uses `wrapFirefox` so that it can be configured like
+using home-manager like through `programs.firefox`, by setting
+`programs.firefox.package`.
+
+Also actively maintained, unlike the upstream.
 
 I have disabled the annoying update checks by default, as well as Zen trying to
 set itself as the default browser, through `policies.json`. The browser cannot
 update itself when installed with Nix anyways, so these are entirely useless.
 
 Similar to the `firefox` package in `nixpkgs`, you can set additional policies
-by using `overrideAttrs` on the `extraPolicies` property. You can also set
-`disableUpdateChecks` using `overrideAttrs` if you want to re-enable update
-checks for some reason. See [the derivation](./zen-browser.nix) for more
-technical details.
+by using `override` on the `extraPolicies` property. See [the
+derivation](./zen-browser.nix) for more technical details.
 
 To use, add it to the relevant NixOS configuration flake inputs:
 
@@ -64,12 +65,15 @@ A tree of the provided packages is displayed below for your convenience.
 ```
 packages
 ├───aarch64-linux
-│   ├───default
-│   └───zen-browser
+│   ├───default: package
+│   ├───zen-browser: package
+│   └───zen-browser-unwrapped: package
 └───x86_64-linux
-    ├───default
-    ├───zen-browser
-    └───zen-browser-generic
+    ├───default: package
+    ├───zen-browser: package
+    ├───zen-browser-generic: package
+    ├───zen-browser-generic-unwrapped: package
+    └───zen-browser-unwrapped: package
 ```
 
 ## Installation
