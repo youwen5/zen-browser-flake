@@ -14,28 +14,21 @@
   pciutils,
   pipewire,
   writeText,
+  sources,
   variant ? "specific",
   ...
 }:
 let
-  version = "1.0.2-b.0";
+  src =
+    if stdenv.targetPlatform.isAarch then
+      sources.zen-browser-aarch64
+    else if variant == "generic" then
+      sources.zen-browser-generic
+    else
+      sources.zen-browser-specific;
 
-  downloadUrl = {
-    "specific" = {
-      url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-specific.tar.bz2";
-      sha256 = "sha256:067m7g48nfa366ajn3flphnwkx8msc034r6px8ml66mbj7awjw4x";
-    };
-    "generic" = {
-      url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-generic.tar.bz2";
-      sha256 = "sha256:02x4w2fq80s1za05s0gg9r2drr845bln80h5hbwhvp1gxq9jf0g2";
-    };
-    "aarch64" = {
-      url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-aarch64.tar.bz2";
-      sha256 = "sha256:1gzxdrb3kfhqyj03a1hd975imx92jgc72rn67xm3xw3yxa3x6isj";
-    };
-  };
-
-  downloadData = if stdenv.hostPlatform.isAarch then downloadUrl.aarch64 else downloadUrl.${variant};
+  # super duper ultra jank technology
+  version = builtins.elemAt (builtins.match ".*/download/([^/]+)/.*" ((import ./flake.nix).inputs.zen-browser-specific.url)) 0;
 
   policies = {
     DisableAppUpdate = true;
@@ -44,13 +37,32 @@ let
   policiesJson = writeText "firefox-policies.json" (builtins.toJSON { inherit policies; });
 in
 stdenv.mkDerivation (finalAttrs: {
-  inherit version;
+  inherit version src;
   pname = "zen-browser-unwrapped";
 
-  src = builtins.fetchTarball {
-    url = downloadData.url;
-    sha256 = downloadData.sha256;
-  };
+  # src = builtins.fetchTarball {
+  #   url = downloadData.url;
+  #   sha256 = downloadData.sha256;
+  # };
+
+  # src = {
+  #   url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-aarch64.tar.bz2";
+  #   sha256 = "sha256:067m7g48nfa366ajn3flphnwkx8msc034r6px8ml66mbj7awjw4x";
+  # };
+
+  # src =
+  #   if stdenv.targetPlatform.isAarch then
+  #
+  #   else if variant == "generic" then
+  #     {
+  #       url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-generic.tar.bz2";
+  #       sha256 = "sha256:02x4w2fq80s1za05s0gg9r2drr845bln80h5hbwhvp1gxq9jf0g2";
+  #     }
+  #   else
+  #     {
+  #       url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-specific.tar.bz2";
+  #       sha256 = "sha256:067m7g48nfa366ajn3flphnwkx8msc034r6px8ml66mbj7awjw4x";
+  #     };
 
   desktopSrc = ./.;
 
