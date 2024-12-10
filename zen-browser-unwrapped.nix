@@ -40,30 +40,6 @@ stdenv.mkDerivation (finalAttrs: {
   inherit version src;
   pname = "zen-browser-unwrapped";
 
-  # src = builtins.fetchTarball {
-  #   url = downloadData.url;
-  #   sha256 = downloadData.sha256;
-  # };
-
-  # src = {
-  #   url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-aarch64.tar.bz2";
-  #   sha256 = "sha256:067m7g48nfa366ajn3flphnwkx8msc034r6px8ml66mbj7awjw4x";
-  # };
-
-  # src =
-  #   if stdenv.targetPlatform.isAarch then
-  #
-  #   else if variant == "generic" then
-  #     {
-  #       url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-generic.tar.bz2";
-  #       sha256 = "sha256:02x4w2fq80s1za05s0gg9r2drr845bln80h5hbwhvp1gxq9jf0g2";
-  #     }
-  #   else
-  #     {
-  #       url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-specific.tar.bz2";
-  #       sha256 = "sha256:067m7g48nfa366ajn3flphnwkx8msc034r6px8ml66mbj7awjw4x";
-  #     };
-
   desktopSrc = ./.;
 
   nativeBuildInputs = [
