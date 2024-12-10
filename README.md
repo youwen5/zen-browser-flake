@@ -2,9 +2,7 @@
 
 This is a flake for the Zen browser. Originally forked from
 [MarceColl/zen-browser-flake](https://github.com/MarceColl/zen-browser-flake),
-but heavily modified. Uses `wrapFirefox` so that it can be configured like
-using home-manager like through `programs.firefox`, by setting
-`programs.firefox.package`.
+but heavily modified. Automatically updates daily.
 
 Also actively maintained, unlike the upstream.
 
@@ -28,17 +26,6 @@ inputs = {
   # ...
 }
 ```
-
-> [!NOTE]
-> This flake provides a Zen version currently out of date on purpose
-> (`1.0.1-a.21`). This is because the latest `1.0.1-a.22` release actually
-> reverts to a previous version that is using an outdated Firefox ESR with
-> known security vulnerabilities (CVEs).
->
-> In the interest of not exposing users to any known security issues, I have
-> decided to keep this flake on `1.0.1-a.21` until Zen releases a new version
-> that is using the latest Firefox ESR. Also, `1.0.1-a.22` does not have an
-> aarch64-linux binary release.
 
 ## Packages
 
