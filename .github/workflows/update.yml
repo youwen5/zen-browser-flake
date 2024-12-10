@@ -1,8 +1,8 @@
-name: Update to latest version, and update Flake Inputs
+name: Update to latest version, and update flake inputs
 
 on:
   schedule:
-    - cron: "0 16,4 * * *"
+    - cron: "0 4 * * *"
   workflow_dispatch:
 
 jobs:
@@ -22,7 +22,7 @@ jobs:
       - name: Set up magic Nix cache
         uses: DeterminateSystems/magic-nix-cache-action@main
 
-      - name: Run development shell update
+      - name: Check for updates, and update
         run: nix develop -c update
 
       - name: Update flake
