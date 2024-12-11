@@ -75,7 +75,7 @@
           pkgs = import nixpkgs { inherit system; };
         in
         {
-          default = pkgs.mkShell {
+          updater = pkgs.mkShell {
             packages = [
               pkgs.jq
               pkgs.gnused
@@ -89,7 +89,6 @@
                   curl -s "https://api.github.com/repos/''${repo}/releases" | jq -r '.[] | select(.prerelease == false) | .tag_name' | head -n 1
                 }
 
-                # Main function
                 update() {
                   local file="flake.nix"
 
@@ -101,16 +100,12 @@
                     exit 1
                   fi
 
-                  echo "Latest release tag: $latest_tag"
-
                   sed -i "s@\(\https://github.com/zen-browser/desktop/releases/download/\)[^/]\+\(/zen\.linux-\(specific\|generic\|aarch64\)\.tar\.bz2\)@\1''${latest_tag}\2@g" flake.nix
 
-                  echo "Update complete!"
+                  echo "$latest_tag"
                 }
 
-                update
-
-                nix flake update
+                echo "$(update)"
               '')
             ];
           };

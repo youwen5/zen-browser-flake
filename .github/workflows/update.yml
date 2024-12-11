@@ -7,7 +7,7 @@ on:
 
 jobs:
   update:
-    name: Update
+    name: Update flake inputs and browser
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -22,16 +22,16 @@ jobs:
       - name: Set up magic Nix cache
         uses: DeterminateSystems/magic-nix-cache-action@main
 
-      - name: Check for updates, and update
-        run: nix develop -c update
-
-      - name: Update flake
-        run: nix flake update
-
-      - name: Commit changes
+      - name: Check for update and perform update
         run: |
+          export ZEN_LATEST_VER="$(nix develop .#updater -c update)"
+          nix flake update zen-browser-aarch64 zen-browser-generic zen-browser-specific
+
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "update to latest version" || echo "No changes to commit."
+          git add -A
+          git commit -m "github-actions: update to $(ZEN_LATEST_VER)" || echo "Latest version is $(ZEN_LATEST_VER), no updates found"
           git push
+
+      - name: Update flake inputs
+        run: nix flake update --commit-lock-file
