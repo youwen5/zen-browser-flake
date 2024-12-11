@@ -15,6 +15,7 @@
   pipewire,
   writeText,
   sources,
+  lib,
   variant ? "specific",
   ...
 }:
@@ -27,8 +28,8 @@ let
     else
       sources.zen-browser-specific;
 
-  # super duper ultra jank technology
-  version = builtins.elemAt (builtins.match ".*/download/([^/]+)/.*" ((import ./flake.nix).inputs.zen-browser-specific.url)) 0;
+  # extract the version from `application.ini`
+  version = ((import ./fromINI.nix lib) (builtins.readFile "${src}/application.ini")).App.Version;
 
   policies = {
     DisableAppUpdate = true;
