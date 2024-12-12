@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT }}
 
       - name: Check flake inputs
         uses: DeterminateSystems/flake-checker-action@v4
@@ -24,14 +26,14 @@ jobs:
 
       - name: Check for update and perform update
         run: |
-          export ZEN_LATEST_VER="$(nix develop .#updater -c update)"
-          nix flake update zen-browser-aarch64 zen-browser-generic zen-browser-specific
-
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          export ZEN_LATEST_VER="$(nix develop .#updater -c update)"
+          nix flake update zen-browser-aarch64 zen-browser-generic zen-browser-specific
           git add -A
           git commit -m "github-actions: update to $ZEN_LATEST_VER" || echo "Latest version is $ZEN_LATEST_VER, no updates found"
-          git push
 
-      - name: Update flake inputs
-        run: nix flake update --commit-lock-file
+          nix flake update --commit-lock-file
+
+          git push
