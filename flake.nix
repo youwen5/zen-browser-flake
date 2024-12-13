@@ -80,7 +80,7 @@
               pkgs.jq
               pkgs.gnused
               pkgs.curl
-              # super duper janky update script
+              pkgs.fh
               (pkgs.writeShellScriptBin "update" ''
                 set -euo pipefail
 
@@ -90,8 +90,6 @@
                 }
 
                 update() {
-                  local file="flake.nix"
-
                   local latest_tag
                   latest_tag=$(fetch_latest_release "zen-browser/desktop")
 
@@ -100,7 +98,9 @@
                     exit 1
                   fi
 
-                  sed -i "s@\(\https://github.com/zen-browser/desktop/releases/download/\)[^/]\+\(/zen\.linux-\(specific\|generic\|aarch64\)\.tar\.bz2\)@\1''${latest_tag}\2@g" flake.nix
+                  fh add --input-name zen-browser-specific "https://github.com/zen-browser/desktop/releases/download/$latest_tag/zen.linux-specific.tar.bz2"
+                  fh add --input-name zen-browser-aarch64 "https://github.com/zen-browser/desktop/releases/download/$latest_tag/zen.linux-aarch64.tar.bz2"
+                  fh add --input-name zen-browser-generic "https://github.com/zen-browser/desktop/releases/download/$latest_tag/zen.linux-generic.tar.bz2"
 
                   echo "$latest_tag"
                 }
