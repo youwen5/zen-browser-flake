@@ -91,3 +91,13 @@ Zen has to be manually added to the list of browsers that 1Password will
 communicate with. See [this wiki article](https://nixos.wiki/wiki/1Password)
 for more information. To enable 1Password integration, you need to add the line
 `.zen-wrapped` to the file `/etc/1password/custom_allowed_browsers`.
+
+## License
+
+GitHub says this repo is forked from
+[MarceColl/zen-browser-flake](https://github.com/MarceColl/zen-browser-flake),
+but this is a historical artifact. It shares effectively zero code or logic
+with the original after a complete rewrite to use `autoPatchelfHook` and
+`wrapFirefox` instead of manually patching in `fixupPhase`. The Nix code is
+licensed under the Unlicense and is released unencumbered into the public
+domain. Feel free to fork and use for whatever purposes.
