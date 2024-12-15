@@ -4,15 +4,15 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     zen-browser-specific = {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.1/zen.linux-specific.tar.bz2";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.2/zen.linux-specific.tar.bz2";
       flake = false;
     };
     zen-browser-generic = {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.1/zen.linux-generic.tar.bz2";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.2/zen.linux-generic.tar.bz2";
       flake = false;
     };
     zen-browser-aarch64 = {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.1/zen.linux-aarch64.tar.bz2";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.2/zen.linux-aarch64.tar.bz2";
       flake = false;
     };
   };
