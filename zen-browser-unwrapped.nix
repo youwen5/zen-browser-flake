@@ -16,17 +16,11 @@
   writeText,
   sources,
   lib,
-  variant ? "specific",
   ...
 }:
 let
   src =
-    if stdenv.targetPlatform.isAarch then
-      sources.zen-browser-aarch64
-    else if variant == "generic" then
-      sources.zen-browser-generic
-    else
-      sources.zen-browser-specific;
+    if stdenv.targetPlatform.isAarch then sources.zen-browser-aarch64 else sources.zen-browser-x86_64;
 
   # extract the version from `application.ini`
   version = ((import ./fromINI.nix lib) (builtins.readFile "${src}/application.ini")).App.Version;

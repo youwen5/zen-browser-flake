@@ -20,47 +20,33 @@
       "inputs": {
         "nixpkgs": "nixpkgs",
         "zen-browser-aarch64": "zen-browser-aarch64",
-        "zen-browser-generic": "zen-browser-generic",
-        "zen-browser-specific": "zen-browser-specific"
+        "zen-browser-x86_64": "zen-browser-x86_64"
       }
     },
     "zen-browser-aarch64": {
       "flake": false,
       "locked": {
-        "lastModified": 1734641206,
-        "narHash": "sha256-F5FwGqAgL4kfEy5rNWvofRQl8SH0udQvEIMhysRMDgs=",
+        "lastModified": 1734985825,
+        "narHash": "sha256-EL/54KHAQkUEzWlIlMMfYFQ2QncOcyXmScNwmmEiv+8=",
         "type": "tarball",
-        "url": "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.3/zen.linux-aarch64.tar.bz2"
+        "url": "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.4/zen.linux-aarch64.tar.bz2"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.3/zen.linux-aarch64.tar.bz2"
+        "url": "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.4/zen.linux-aarch64.tar.bz2"
       }
     },
-    "zen-browser-generic": {
+    "zen-browser-x86_64": {
       "flake": false,
       "locked": {
-        "lastModified": 1734646830,
-        "narHash": "sha256-slIWuEWSV9PK1JTr6UKKC+VP4oLNaczwkxkYiqcjZM8=",
+        "lastModified": 1734992091,
+        "narHash": "sha256-ZVGyOtB2oL6qDzAfZeyVjUy/wwFYfuqjNb2TV7SNH28=",
         "type": "tarball",
-        "url": "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.3/zen.linux-generic.tar.bz2"
+        "url": "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.4/zen.linux-x86_64.tar.bz2"
       },
       "original": {
         "type": "tarball",
-        "url": "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.3/zen.linux-generic.tar.bz2"
-      }
-    },
-    "zen-browser-specific": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1734645803,
-        "narHash": "sha256-zAo93sHeB8cTW2JBAqxx0wo3CANcxCgjEcTQgbDeWT4=",
-        "type": "tarball",
-        "url": "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.3/zen.linux-specific.tar.bz2"
-      },
-      "original": {
-        "type": "tarball",
-        "url": "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.3/zen.linux-specific.tar.bz2"
+        "url": "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.4/zen.linux-x86_64.tar.bz2"
       }
     }
   },

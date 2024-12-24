@@ -1,18 +1,14 @@
 {
-  description = "Zen Browser binary supporting wrapFirefox";
+  description = "Flake that provides Zen Browser binaries wrapped and patched for NixOS.";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    zen-browser-specific = {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.3/zen.linux-specific.tar.bz2";
-      flake = false;
-    };
-    zen-browser-generic = {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.3/zen.linux-generic.tar.bz2";
+    zen-browser-x86_64 = {
+      url = "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.4/zen.linux-x86_64.tar.bz2";
       flake = false;
     };
     zen-browser-aarch64 = {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.3/zen.linux-aarch64.tar.bz2";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.0.2-b.4/zen.linux-aarch64.tar.bz2";
       flake = false;
     };
   };
@@ -30,44 +26,20 @@
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
     in
     {
-      packages."x86_64-linux" =
-        let
-          pkgs = import nixpkgs { system = "x86_64-linux"; };
-        in
-        rec {
-          zen-browser-unwrapped = pkgs.callPackage ./zen-browser-unwrapped.nix {
-            sources = inputs;
-          };
-          zen-browser = pkgs.callPackage ./zen-browser.nix { inherit zen-browser-unwrapped; };
-          zen-browser-generic-unwrapped = pkgs.callPackage ./zen-browser-unwrapped.nix {
-            sources = inputs;
-            variant = "generic";
-          };
-          zen-browser-generic = pkgs.callPackage ./zen-browser.nix {
-            zen-browser-unwrapped = zen-browser-generic-unwrapped;
-          };
-          default = zen-browser;
-        };
-
-      packages."aarch64-linux" =
-        let
-          pkgs = import nixpkgs { system = "aarch64-linux"; };
-        in
-        rec {
-          zen-browser-unwrapped = pkgs.callPackage ./zen-browser-unwrapped.nix {
-            sources = inputs;
-          };
-          zen-browser = pkgs.callPackage ./zen-browser.nix { inherit zen-browser-unwrapped; };
-          default = zen-browser;
-        };
-
-      formatter = forAllSystems (
+      packages = forAllSystems (
         system:
         let
           pkgs = import nixpkgs { inherit system; };
         in
-        pkgs.nixfmt-rfc-style
+        rec {
+          zen-browser-unwrapped = pkgs.callPackage ./zen-browser-unwrapped.nix { sources = inputs; };
+          zen-browser = pkgs.callPackage ./zen-browser.nix { inherit zen-browser-unwrapped; };
+          zen-browser-generic = builtins.trace "WARNING: Zen upstream no longer differentiates between specific and generic builds, this package is kept for flake backwards-compatibility only. Please use the default `zen-browser` package instead." zen-browser;
+          default = zen-browser;
+        }
       );
+
+      formatter = forAllSystems (system: nixpkgs.legacyPackaegs.${system}.nixfmt-rfc-style);
 
       devShells = forAllSystems (
         system:
@@ -98,9 +70,8 @@
                     exit 1
                   fi
 
-                  fh add --input-name zen-browser-specific "https://github.com/zen-browser/desktop/releases/download/$latest_tag/zen.linux-specific.tar.bz2"
+                  fh add --input-name zen-browser-x86_64 "https://github.com/zen-browser/desktop/releases/download/$latest_tag/zen.linux-x86_64.tar.bz2"
                   fh add --input-name zen-browser-aarch64 "https://github.com/zen-browser/desktop/releases/download/$latest_tag/zen.linux-aarch64.tar.bz2"
-                  fh add --input-name zen-browser-generic "https://github.com/zen-browser/desktop/releases/download/$latest_tag/zen.linux-generic.tar.bz2"
 
                   echo "$latest_tag"
                 }
