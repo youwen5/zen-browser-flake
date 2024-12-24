@@ -1,4 +1,4 @@
-# Zen Browser
+# Zen Browser for Nix
 
 This is a flake for the Zen browser. Originally forked from
 [MarceColl/zen-browser-flake](https://github.com/MarceColl/zen-browser-flake),
@@ -30,24 +30,11 @@ inputs = {
 ## Packages
 
 This flake provides the `zen-browser` package, which is also its default
-package. On x86_64 systems, this corresponds to the "specific" build of Zen
-Browser. On aarch64 systems, this is simply the default and only aarch64 build.
+package, for both `x86_64-linux` and `aarch64-linux` systems.
 
-For "x86_64-linux" systems only, the flake also provides `zen-browser-generic`, which
-corresponds to the "generic" build of Zen Browser. On aarch64 based systems
-there is no distinction between generic or specific.
-
-> [!NOTE]
-> Essentially, the "specific" build enables `avx2` processor
-> optimizations at compile time for some marginal performance increases. If you
-> have a relatively recent CPU, you should be able to run it with no issues. If
-> you have an older CPU, you may want to use the "generic" build.
->
-> If the above technical jargon does not mean anything to you, just install the
-> default package for your system, and install `zen-browser-generic` if things
-> don't work.
-
-A tree of the provided packages is displayed below for your convenience.
+Additionally, `zen-browser-unwrapped` is provided (similar to
+`firefox-bin-unwrapped`). A tree of the provided packages is displayed below
+for your convenience.
 
 ```
 packages
@@ -58,21 +45,15 @@ packages
 └───x86_64-linux
     ├───default: package
     ├───zen-browser: package
-    ├───zen-browser-generic: package
-    ├───zen-browser-generic-unwrapped: package
     └───zen-browser-unwrapped: package
 ```
 
 ## Installation
 
-In `environment.systemPackages`, add one of:
+In `environment.systemPackages`, add something similar to:
 
 ```nix
-# for most modern systems
 inputs.zen-browser.packages.${pkgs.system}.default
-
-# for older CPUs without AVX2 extension set
-inputs.zen-browser.packages."x86_64-linux".zen-browser-generic
 ```
 
 A binary called `zen` is provided.
@@ -81,9 +62,20 @@ You can also install it using the CLI imperatively:
 
 `nix profile install github:youwen5/zen-browser`
 
-For the generic version (x86_64-linux only):
+## Caveats
 
-`nix profile install github:youwen5/zen-browser#zen-browser-generic`
+As with all GPU accelerated programs, Zen may not be able to use GPU
+acceleration if not installed on NixOS (and if you didn't override its nixpkgs
+input to your system nixpkgs, if using NixOS).
+
+This can be solved with
+[nix-community/nixGL](https://github.com/nix-community/nixGL).
+
+For Asahi Linux Fedora Remix users, you will need to apply the overlay from
+[this repo](https://github.com/tpwrules/nixos-apple-silicon/) to your
+nixpkgs, and then override this flake's nixpkgs input, and then use nixGL to
+get everything working properly. If that sounds too involved for you, I don't
+recommend using Nix to install Zen.
 
 ## 1Password
 
