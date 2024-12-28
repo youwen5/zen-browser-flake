@@ -35,8 +35,6 @@ stdenv.mkDerivation (finalAttrs: {
     inherit url hash;
   };
 
-  desktopSrc = ./.;
-
   nativeBuildInputs = [
     wrapGAppsHook3
     autoPatchelfHook
