@@ -20,8 +20,7 @@ def generate_sources [] {
 
   if $tag == $prev_sources.version {
 	# everything up to date
-	echo $tag
-	return
+	return $tag
   }
 
   let x86_64_url = $"https://github.com/zen-browser/desktop/releases/download/($tag)/zen.linux-x86_64.tar.bz2"

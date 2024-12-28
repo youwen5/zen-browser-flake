@@ -29,8 +29,9 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          export ZEN_LATEST_VER="$(nix develop .#updater -c update)"
-          nix flake update zen-browser-aarch64 zen-browser-generic zen-browser-specific
+          chmod +x ./update.nu
+          export ZEN_LATEST_VER="$(./update.nu)"
+
           git add -A
           git commit -m "github-actions: update to $ZEN_LATEST_VER" || echo "Latest version is $ZEN_LATEST_VER, no updates found"
 
