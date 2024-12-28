@@ -14,17 +14,13 @@
   pciutils,
   pipewire,
   writeText,
-  sources,
-  lib,
+  fetchurl,
+  version,
+  url,
+  hash,
   ...
 }:
 let
-  src =
-    if stdenv.targetPlatform.isAarch then sources.zen-browser-aarch64 else sources.zen-browser-x86_64;
-
-  # extract the version from `application.ini`
-  version = ((import ./fromINI.nix lib) (builtins.readFile "${src}/application.ini")).App.Version;
-
   policies = {
     DisableAppUpdate = true;
   } // config.zen.policies or { };
@@ -32,8 +28,12 @@ let
   policiesJson = writeText "firefox-policies.json" (builtins.toJSON { inherit policies; });
 in
 stdenv.mkDerivation (finalAttrs: {
-  inherit version src;
+  inherit version;
   pname = "zen-browser-unwrapped";
+
+  src = fetchurl {
+    inherit url hash;
+  };
 
   desktopSrc = ./.;
 
