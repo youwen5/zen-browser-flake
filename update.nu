@@ -1,6 +1,6 @@
 #!/usr/bin/env -S nix shell nixpkgs#nushell --command nu
 
-def get_latest_release [repo: string] {
+def get_latest_release [repo: string]: nothing -> string {
   try {
 	http get $"https://api.github.com/repos/($repo)/releases"
 	  | where prerelease == false
@@ -10,17 +10,20 @@ def get_latest_release [repo: string] {
   } catch { |err| $"Failed to fetch latest release, aborting: ($err.msg)" }
 }
 
-def get_nix_hash [url: string] {
+def get_nix_hash [url: string]: nothing -> string  {
   nix store prefetch-file --hash-type sha256 --json $url | from json | get hash
 }
 
-def generate_sources [] {
+export def generate_sources []: nothing -> record {
   let tag = get_latest_release "zen-browser/desktop"
-  let prev_sources = open ./sources.json
+  let prev_sources: record = open ./sources.json
 
   if $tag == $prev_sources.version {
 	# everything up to date
-	return $tag
+	return {
+	  prev_tag: $tag
+	  new_tag: $tag
+	}
   }
 
   let x86_64_url = $"https://github.com/zen-browser/desktop/releases/download/($tag)/zen.linux-x86_64.tar.bz2"
@@ -39,7 +42,8 @@ def generate_sources [] {
 
   echo $sources | save --force "sources.json"
 
-  return $tag
+  return {
+    new_tag: $tag
+    prev_tag: $prev_sources.version
+  }
 }
-
-generate_sources
