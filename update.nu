@@ -1,4 +1,6 @@
-#!/usr/bin/env -S nix shell nixpkgs#nushell --command nu
+# to invoke generate_sources directly, enter nushell and run
+# `use update.nu`
+# `update generate_sources`
 
 def get_latest_release [repo: string]: nothing -> string {
   try {
