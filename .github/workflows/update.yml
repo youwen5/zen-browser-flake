@@ -29,11 +29,8 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          chmod +x ./update.nu
-          export ZEN_LATEST_VER="$(./update.nu)"
-
-          git add -A
-          git commit -m "github-actions: update to $ZEN_LATEST_VER" || echo "Latest version is $ZEN_LATEST_VER, no updates found"
+          chmod +x ./commit-update.nu
+          ./commit-update.nu
 
           nix flake update --commit-lock-file
 
