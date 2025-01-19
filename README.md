@@ -1,13 +1,15 @@
 # Zen Browser for Nix
 
-This is a flake for the Zen browser. Originally forked from
+This is a flake for the Zen browser. Originally forked from the unmaintained
 [MarceColl/zen-browser-flake](https://github.com/MarceColl/zen-browser-flake),
-but heavily modified. Automatically updates daily.
+but heavily modified. GitHub Actions is configured to automatically check for updates daily.
 
-Also actively maintained, unlike the upstream.
+The primary difference between this flake and most of the other forks
+available is it has more correct packaging that closely mirrors how Firefox is packaged in nixpkgs,
+using `wrapFirefox`. For instance Zen's desktop file is extracted directly from the binary
+instead of being provided manually.
 
-I have disabled the annoying update checks by default, as well as Zen trying to
-set itself as the default browser, through `policies.json`. The browser cannot
+The annoying update checks have been disabled by default through a Firefox policy. The browser cannot
 update itself when installed with Nix anyways, so these are entirely useless.
 
 Similar to the `firefox` package in `nixpkgs`, you can set additional policies
