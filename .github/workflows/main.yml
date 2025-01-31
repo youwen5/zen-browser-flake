@@ -14,7 +14,6 @@ jobs:
         uses: DeterminateSystems/flake-checker-action@v4
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
-      - uses: DeterminateSystems/magic-nix-cache-action@main
       - run: nix flake check --all-systems
       - run: nix build .
       - run: nix build .#zen-browser-generic

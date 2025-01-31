@@ -21,9 +21,6 @@ jobs:
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
 
-      - name: Set up magic Nix cache
-        uses: DeterminateSystems/magic-nix-cache-action@main
-
       - name: Check for update and perform update
         run: |
           git config --global user.name "github-actions[bot]"
