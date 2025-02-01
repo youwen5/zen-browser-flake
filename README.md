@@ -62,7 +62,7 @@ A binary called `zen` is provided.
 
 You can also install it using the CLI imperatively:
 
-`nix profile install github:youwen5/zen-browser`
+`nix profile install github:youwen5/zen-browser-flake`
 
 ## Caveats
 
