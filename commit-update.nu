@@ -12,6 +12,8 @@ def commit_update []: nothing -> nothing {
     print $"Latest version is ($zen_latest.prev_tag), no updates found"
   } else {
     print $"Performed update from ($zen_latest.prev_tag) -> ($zen_latest.new_tag)"
+    print "Updating Flake lockfile"
+    nix flake update --commit-lock-file
   }
 }
 

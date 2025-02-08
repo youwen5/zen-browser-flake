@@ -29,6 +29,4 @@ jobs:
           chmod +x ./commit-update.nu
           ./commit-update.nu
 
-          nix flake update --commit-lock-file
-
           git push
