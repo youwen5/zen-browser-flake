@@ -35,6 +35,13 @@
         }
       );
 
+      apps = forAllSystems (_: {
+        update = {
+          type = "app";
+          program = ./update-scripts/commit-update.nu;
+        };
+      });
+
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
     };
 }
