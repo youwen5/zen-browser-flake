@@ -87,7 +87,7 @@ nix run .#update
 > Is there a Cachix (binary cache)?
 
 Since we're not building from source and just wrapping upstream binaries we
-don't really need a binary cache as the patching process shoudld take just a
+don't really need a binary cache as the patching process should take just a
 few seconds.
 
 If you're experiencing abnormally long build times you probably aren't
