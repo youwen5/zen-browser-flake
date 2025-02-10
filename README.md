@@ -52,17 +52,48 @@ packages
 
 ## Installation
 
-In `environment.systemPackages`, add something similar to:
-
-```nix
-inputs.zen-browser.packages.${pkgs.system}.default
-```
-
-A binary called `zen` is provided.
-
-You can also install it using the CLI imperatively:
+The easiest way is to use the CLI imperatively:
 
 `nix profile install github:youwen5/zen-browser-flake`
+
+If you're on NixOS and/or home-manager, you should install it in your system or
+home configuration.
+
+For example, in `configuration.nix`, add something similar to:
+
+```nix
+environment.systemPackages = [
+  inputs.zen-browser.packages.${pkgs.system}.default
+];
+```
+
+A binary called `zen` is provided as well as a desktop file that should show up
+in app launchers.
+
+
+## FAQ
+
+> How to run the update script locally?
+
+There's a workflow configured that runs every day at 8PM Pacific Time to
+automatically check for any new releases from `zen-browser/desktop` and update
+the flake. If you want to run the script manually, just enter the repo's
+directory and run
+
+```sh
+nix run .#update
+```
+
+> Is there a Cachix (binary cache)?
+
+Since we're not building from source and just wrapping upstream binaries we
+don't really need a binary cache as the patching process shoudld take just a
+few seconds.
+
+If you're experiencing abnormally long build times you probably aren't
+overriding the `nixpkgs` input and its duplicating a lot of system libraries.
+Just set `inputs.zen-browser.inputs.nixpkgs.follows = "nixpkgs"` or something
+similar.
 
 ## Caveats
 
@@ -72,12 +103,6 @@ input to your system nixpkgs, if using NixOS).
 
 This can be solved with
 [nix-community/nixGL](https://github.com/nix-community/nixGL).
-
-For Asahi Linux Fedora Remix users, you will need to apply the overlay from
-[this repo](https://github.com/tpwrules/nixos-apple-silicon/) to your
-nixpkgs, and then override this flake's nixpkgs input, and then use nixGL to
-get everything working properly. If that sounds too involved for you, I don't
-recommend using Nix to install Zen.
 
 ## 1Password
 
