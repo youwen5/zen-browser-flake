@@ -35,12 +35,18 @@
         }
       );
 
-      apps = forAllSystems (_: {
-        update = {
-          type = "app";
-          program = ./update-scripts/commit-update.nu;
-        };
-      });
+      apps = forAllSystems (
+        system:
+        let
+          pkgs = import nixpkgs { inherit system; };
+        in
+        {
+          update = {
+            type = "app";
+            program = "${pkgs.callPackage ./update-scripts { }}/bin/commit-update.nu";
+          };
+        }
+      );
 
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
     };
