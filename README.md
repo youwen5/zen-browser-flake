@@ -93,7 +93,7 @@ don't really need a binary cache as the patching process should take just a
 few seconds.
 
 If you're experiencing abnormally long build times you probably aren't
-overriding the `nixpkgs` input and its duplicating a lot of system libraries.
+overriding the `nixpkgs` input and it's duplicating a lot of system libraries.
 Just set `inputs.zen-browser.inputs.nixpkgs.follows = "nixpkgs"` or something
 similar.
 
