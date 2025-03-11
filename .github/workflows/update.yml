@@ -27,5 +27,3 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
           nix run .#update
-
-          git push
