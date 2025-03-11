@@ -115,10 +115,11 @@ for more information. To enable 1Password integration, you need to add the line
 
 ## License
 
-GitHub says this repo is forked from
-[MarceColl/zen-browser-flake](https://github.com/MarceColl/zen-browser-flake),
-but this is a historical artifact. It shares effectively zero code or logic
-with the original after a complete rewrite to use `autoPatchelfHook` and
-`wrapFirefox` instead of manually patching in `fixupPhase`. The Nix code is
-licensed under the Unlicense and is released unencumbered into the public
-domain. Feel free to fork and use for whatever purposes.
+The derivation in `./zen-browser-unwrapped.nix` is mostly based on
+[firefox-bin-unwrapped](https://github.com/NixOS/nixpkgs/blob/nixos-24.11/pkgs/applications/networking/browsers/firefox-bin/default.nix#L119)
+which is MIT licensed Copyright (c) 2003-2025 Eelco Dolstra and the
+Nixpkgs/NixOS contributors.
+
+The rest of the code is licensed under the Unlicense and is released
+unencumbered into the public domain. Feel free to fork and use for whatever
+purposes. 
