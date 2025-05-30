@@ -69,6 +69,20 @@ environment.systemPackages = [
 ];
 ```
 
+If you don't want to use flakes, you can add it like:
+
+```nix
+environment.systemPackages = 
+  let
+    zen-browser = import (builtins.fetchTarball "https://github.com/youwen5/zen-browser-flake/archive/master.tar.gz") {
+      inherit pkgs;
+    };
+  in
+  [
+    zen-browser    
+  ];
+```
+
 A binary called `zen` is provided as well as a desktop file that should show up
 in app launchers.
 
