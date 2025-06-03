@@ -1,4 +1,8 @@
-{ pkgs, system ? pkgs.system, ... }:
+{
+  pkgs,
+  system ? pkgs.system,
+  ...
+}:
 let
   sources = builtins.fromJSON (builtins.readFile ./sources.json);
 in
