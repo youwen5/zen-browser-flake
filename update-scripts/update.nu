@@ -45,13 +45,13 @@ export def generate_sources []: nothing -> record {
   let x86_64_url_tw = $"https://github.com/zen-browser/desktop/releases/download/twilight/zen.linux-x86_64.tar.xz"
   let aarch64_url_tw = $"https://github.com/zen-browser/desktop/releases/download/twilight/zen.linux-aarch64.tar.xz"
   let sourcesTw = {
-	version: $tag
+	version: "twilight"
 	x86_64-linux: {
-	  url:  $x86_64_url
+	  url:  $x86_64_url_tw
 	  hash: (get_nix_hash $x86_64_url_tw)
 	}
 	aarch64-linux: {
-	  url: $aarch64_url
+	  url: $aarch64_url_tw
 	  hash: (get_nix_hash $aarch64_url_tw)
 	}
   }
