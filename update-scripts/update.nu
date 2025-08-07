@@ -20,8 +20,23 @@ export def generate_sources []: nothing -> record {
   let tag = get_latest_release "zen-browser/desktop"
   let prev_sources: record = open ./sources.json
 
+  let x86_64_url_tw = $"https://github.com/zen-browser/desktop/releases/download/twilight/zen.linux-x86_64.tar.xz"
+  let aarch64_url_tw = $"https://github.com/zen-browser/desktop/releases/download/twilight/zen.linux-aarch64.tar.xz"
+  let sourcesTw = {
+	version: "twilight"
+	x86_64-linux: {
+	  url:  $x86_64_url_tw
+	  hash: (get_nix_hash $x86_64_url_tw)
+	}
+	aarch64-linux: {
+	  url: $aarch64_url_tw
+	  hash: (get_nix_hash $aarch64_url_tw)
+	}
+  }
+
+  echo $sourcesTw | save --force "twilightSources.json"
+
   if $tag == $prev_sources.version {
-	# everything up to date
 	return {
 	  prev_tag: $tag
 	  new_tag: $tag
@@ -42,22 +57,7 @@ export def generate_sources []: nothing -> record {
 	}
   }
 
-  let x86_64_url_tw = $"https://github.com/zen-browser/desktop/releases/download/twilight/zen.linux-x86_64.tar.xz"
-  let aarch64_url_tw = $"https://github.com/zen-browser/desktop/releases/download/twilight/zen.linux-aarch64.tar.xz"
-  let sourcesTw = {
-	version: "twilight"
-	x86_64-linux: {
-	  url:  $x86_64_url_tw
-	  hash: (get_nix_hash $x86_64_url_tw)
-	}
-	aarch64-linux: {
-	  url: $aarch64_url_tw
-	  hash: (get_nix_hash $aarch64_url_tw)
-	}
-  }
-
   echo $sources | save --force "sources.json"
-  echo $sourcesTw | save --force "twilightSources.json"
 
   return {
     new_tag: $tag
