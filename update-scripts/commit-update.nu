@@ -1,11 +1,9 @@
 #!/usr/bin/env -S nix shell nixpkgs#nushell --command nu
 
 use update.nu
-use updateTwilight.nu
 
 def commit_update []: nothing -> nothing {
   let zen_latest = update generate_sources
-  update generate_twilight_sources
 
   git add -A
   let commit = git commit -m $"auto-update: ($zen_latest.prev_tag) -> ($zen_latest.new_tag)" | complete

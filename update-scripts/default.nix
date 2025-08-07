@@ -14,6 +14,5 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     install -Dm755 ./commit-update.nu $out/bin/commit-update.nu
     install -Dm755 ./update.nu $out/bin/update.nu
-    install -Dm755 ./updateTwilight.nu $out/bin/updateTwilight.nu
   '';
 }
