@@ -40,6 +40,15 @@
         }
       );
 
+      overlays.default =
+        final: prev:
+        let
+          packages = import ./. { pkgs = final; };
+        in
+        {
+          inherit (packages) zen-browser zen-browser-unwrapped;
+        };
+
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
     };
 }
