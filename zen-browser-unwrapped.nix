@@ -85,7 +85,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     libName = "zen-${version}";
     binaryName = finalAttrs.meta.mainProgram;
-    gssSupport = true;
-    ffmpegSupport = true;
+    withGSSAPI = true;
+    withFFmpeg = true;
   };
 })
