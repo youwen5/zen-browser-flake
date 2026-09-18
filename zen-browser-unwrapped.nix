@@ -16,6 +16,7 @@
   writeText,
   fetchurl,
   version,
+  firefoxVersion,
   url,
   hash,
   ...
@@ -81,11 +82,15 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   passthru = {
-    inherit gtk3;
+    inherit gtk3 firefoxVersion;
 
     libName = "zen-${version}";
     binaryName = finalAttrs.meta.mainProgram;
+
+    # Keep both names for compatibility with old and new nixpkgs wrapFirefox.
     gssSupport = true;
     ffmpegSupport = true;
+    withGSSAPI = true;
+    withFFmpeg = true;
   };
 })
