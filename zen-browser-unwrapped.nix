@@ -85,7 +85,14 @@ stdenv.mkDerivation (finalAttrs: {
 
     libName = "zen-${version}";
     binaryName = finalAttrs.meta.mainProgram;
+
+    # Nixpkgs uses RFC169 terminology.
+    #
+    #  https://github.com/NixOS/nixpkgs/commit/cf6a014d171b2eccc2efc2587ac526ea1051858d
+    #
     gssSupport = true;
     ffmpegSupport = true;
+    withFFmpeg = true;
+    withGSSAPI = true;
   };
 })
