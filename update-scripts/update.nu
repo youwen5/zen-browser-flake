@@ -12,6 +12,13 @@ def get_latest_release [repo: string]: nothing -> string {
   } catch { |err| $"Failed to fetch latest release, aborting: ($err.msg)" }
 }
 
+def get_firefox_version [tag: string]: nothing -> string {
+  try {
+    http get $"https://raw.githubusercontent.com/zen-browser/desktop/($tag)/surfer.json"
+      | get version.version
+  } catch { |err| $"Failed to fetch Firefox version for ($tag), aborting: ($err.msg)" }
+}
+
 def get_nix_hash [url: string]: nothing -> string  {
   nix store prefetch-file --hash-type sha256 --json $url | from json | get hash
 }
@@ -28,10 +35,12 @@ export def generate_sources []: nothing -> record {
 	}
   }
 
+  let firefox_version = get_firefox_version $tag
   let x86_64_url = $"https://github.com/zen-browser/desktop/releases/download/($tag)/zen.linux-x86_64.tar.xz"
   let aarch64_url = $"https://github.com/zen-browser/desktop/releases/download/($tag)/zen.linux-aarch64.tar.xz"
   let sources = {
 	version: $tag
+	firefoxVersion: $firefox_version
 	x86_64-linux: {
 	  url:  $x86_64_url
 	  hash: (get_nix_hash $x86_64_url)
