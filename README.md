@@ -93,8 +93,10 @@ in app launchers.
 
 There's a workflow configured that runs every day at 8PM Pacific Time to
 automatically check for any new releases from `zen-browser/desktop` and update
-the flake. If you want to run the script manually, just enter the repo's
-directory and run
+the flake. It also detects when upstream re-uploads the release assets for an
+already-published version (which changes their hashes) and refreshes
+`sources.json` accordingly. If you want to run the script manually, just enter
+the repo's directory and run
 
 ```sh
 nix run .#update
